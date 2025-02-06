@@ -6,22 +6,25 @@ import os
 os.environ["GOOGLE_API_KEY"] = 'AIzaSyDGTrfALfYRqf0haAzkxG1Mwz1zMicxbl8'  # Replace with your real key
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
+# Define the generation configuration for the model
+generation_config = {
+    "max_output_tokens": 512,  # You can adjust this value
+    "temperature": 0.7,        # Adjust temperature for randomness
+    "top_p": 0.95              # Adjust top_p for sampling control
+}
+
 # Load the Gemini model
-model = genai.GenerativeModel(
-  model_name="gemini-2.0-flash",
-  generation_config=generation_config,
+model = genai.GenerativeModel(model_name="gemini-2.0-flash", generation_config=generation_config)
 
 # System instructions for the chatbot
 SYSTEM_INSTRUCTIONS = """
 Your name is *Simplify*, a helpful AI assistant designed to interpret and simplify complex information. 
 Users will provide you with text or image data. Your task is to:
-
 1. **Understand:** Thoroughly analyze the input text or image to identify its core meaning, key concepts, and underlying context.
 2. **Simplify:** Re-express the information in a clear, concise, and easily understandable manner. Tailor the simplification to be appropriate for a general audience with no specialized knowledge.
 3. **Explain:** Provide the simplified explanation in a conversational, chatbot-like format.
-
 When responding, consider that the user may have limited background knowledge. Ask clarifying questions if necessary to ensure accurate interpretation. Also, introduce yourself with a smiley face emoji 😃.
-""")
+"""
 
 # Chatbot function
 def respond(message, history, system_message, max_tokens, temperature, top_p):
@@ -35,7 +38,7 @@ def respond(message, history, system_message, max_tokens, temperature, top_p):
 
     chat_history.append({"role": "user", "parts": [message]})
 
-        # Debugging: Log the full chat history
+    # Debugging: Log the full chat history
     print(chat_history)
 
     # Generate response
