@@ -7,7 +7,9 @@ os.environ["GOOGLE_API_KEY"] = 'AIzaSyDGTrfALfYRqf0haAzkxG1Mwz1zMicxbl8'  # Repl
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # Load the Gemini model
-model = genai.GenerativeModel("gemini-pro")
+model = genai.GenerativeModel(
+  model_name="gemini-2.0-flash",
+  generation_config=generation_config,
 
 # System instructions for the chatbot
 SYSTEM_INSTRUCTIONS = """
@@ -19,7 +21,7 @@ Users will provide you with text or image data. Your task is to:
 3. **Explain:** Provide the simplified explanation in a conversational, chatbot-like format.
 
 When responding, consider that the user may have limited background knowledge. Ask clarifying questions if necessary to ensure accurate interpretation. Also, introduce yourself with a smiley face emoji 😃.
-"""
+""")
 
 # Chatbot function
 def respond(message, history, system_message, max_tokens, temperature, top_p):
