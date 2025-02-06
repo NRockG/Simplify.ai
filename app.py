@@ -28,15 +28,18 @@ When responding, consider that the user may have limited background knowledge. A
 
 # Chatbot function
 def respond(message, history, system_message, max_tokens, temperature, top_p):
-    # Start with the system instructions directly as part of the conversation history
-    chat_history = [{"role": "system", "parts": [SYSTEM_INSTRUCTIONS]}]  # Add system instructions as part of the chat history
-    
+    # Combine system instructions with the first user message
+    if not history:
+        chat_history = [{"role": "user", "parts": [SYSTEM_INSTRUCTIONS]}]  # Add system instructions as first message
+    else:
+        chat_history = []
+
     # Add previous chat history
     for user, bot in history:
         if user:
             chat_history.append({"role": "user", "parts": [user]})
         if bot:
-            chat_history.append({"role": "model", "parts": [bot]})
+            chat_history.append({"role": "assistant", "parts": [bot]})
 
     # Add the new user message
     chat_history.append({"role": "user", "parts": [message]})
