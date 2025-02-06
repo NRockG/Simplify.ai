@@ -22,7 +22,7 @@ def respond(message, history, system_message, max_tokens, temperature, top_p):
     chat_history.append({"role": "user", "parts": [message]})
 
     # Generate response from your custom Gemini AI agent
-    response = agent.generate_content(
+    response = model.generate_content(
         chat_history,
         generation_config={
             "max_output_tokens": max_tokens,
