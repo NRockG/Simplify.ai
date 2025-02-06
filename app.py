@@ -3,7 +3,7 @@ import google.generativeai as genai
 import os
 
 # Set your Google AI Studio API Key
-os.environ["GOOGLE_API_KEY"] = AIzaSyDGTrfALfYRqf0haAzkxG1Mwz1zMicxbl8
+os.environ["GOOGLE_API_KEY"] = 'AIzaSyDGTrfALfYRqf0haAzkxG1Mwz1zMicxbl8'
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # Load the Gemini model
