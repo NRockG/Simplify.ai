@@ -83,18 +83,21 @@
         </div>
         <div class="chat-input">
             <input type="text" id="user-input" placeholder="Type your message...">
-            <button id="send-btn">Send</button> <!-- Moved inside .chat-input -->
+            <button id="send-btn">Send</button>
         </div>
     </div>
 
-    <script>
-        function sendMessage() {
+    <script type="module">
+        // Import Gradio client
+        import { Client } from "@gradio/client";
+
+        async function sendMessage() {
             const inputField = document.getElementById("user-input");
             const messageText = inputField.value.trim();
             if (messageText === "") return;
 
             const chatBody = document.getElementById("chat-body");
-            
+
             // User message
             const userMessage = document.createElement("div");
             userMessage.classList.add("message", "user-message");
@@ -105,31 +108,33 @@
             chatBody.scrollTop = chatBody.scrollHeight;
 
             inputField.value = "";
-            
-            // Send message to backend (Replace URL with actual API endpoint)
-            fetch("https://gravity30-simplify-ai.hf.space/chat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: messageText })
-                })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
+
+            // Connect to Gradio API (Hugging Face Space)
+            try {
+                const client = await Client.connect("https://huggingface.co/spaces/Gravity30/Simplify.ai");
+
+                // Make a prediction request to the /chat endpoint
+                const result = await client.predict("/chat", { 
+                    message: messageText, 
+                    system_message: "Hello!!", 
+                    max_tokens: 1, 
+                    temperature: 0.1, 
+                    top_p: 0.1 
+                });
+
+                // Bot message
                 const botMessage = document.createElement("div");
                 botMessage.classList.add("message", "bot-message");
-                botMessage.textContent = data.response || "No response from the server.";
+                botMessage.textContent = result.data || "No response from the server.";
                 chatBody.appendChild(botMessage);
                 chatBody.scrollTop = chatBody.scrollHeight;
-            })
-            .catch(error => console.error("Fetch error:", error));
 
+            } catch (error) {
+                console.error("Fetch error:", error);
+            }
         }
 
-        // ✅ Moved this below function definition
+        // Add event listener to the send button
         document.getElementById("send-btn").addEventListener("click", sendMessage);
     </script>
 </body>
