@@ -32,11 +32,11 @@
             document.getElementById('messages').innerHTML += `<p><b>You:</b> ${userMessage}</p>`;
 
             // Call Hugging Face API
-           const response = await fetch("https://gravity30-simplify-ai.hf.space/api/predict/", { 
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-        data: [userMessage, [], "Simplify AI - Ready to help! 😃", 512, 0.7, 0.95]
+        const response = await fetch("https://gravity30-simplify-ai.hf.space/api/predict/", { 
+   	  method: "POST",
+    	  headers: { "Content-Type": "application/json" },
+    	  body: JSON.stringify({
+              data: [userMessage, [], "Simplify AI - Ready to help! 😃", 512, 0.7, 0.95]
     })
 });
 
