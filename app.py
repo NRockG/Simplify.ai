@@ -3,8 +3,13 @@ import google.generativeai as genai
 import os
 
 # Set your Google AI Studio API Key
-os.environ["GOOGLE_API_KEY"] = 'AIzaSyDGTrfALfYRqf0haAzkxG1Mwz1zMicxbl8'  # Replace with your real key
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+API_KEY = os.getenv("GEMINI_API_KEY")  # Retrieve key securely
+
+if not API_KEY:
+    raise ValueError("Error: GEMINI_API_KEY is not set. Please add it as an environment variable.")
+
+
+genai.configure(api_key=API_KEY)
 
 # Define the generation configuration for the model
 generation_config = {
