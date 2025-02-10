@@ -111,16 +111,22 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: messageText })
+                })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
             })
-            .then(response => response.json())
             .then(data => {
                 const botMessage = document.createElement("div");
                 botMessage.classList.add("message", "bot-message");
-                botMessage.textContent = data.response;
+                botMessage.textContent = data.response || "No response from the server.";
                 chatBody.appendChild(botMessage);
                 chatBody.scrollTop = chatBody.scrollHeight;
             })
-            .catch(error => console.error("Error:", error));
+            .catch(error => console.error("Fetch error:", error));
+
         }
 
         // ✅ Moved this below function definition
