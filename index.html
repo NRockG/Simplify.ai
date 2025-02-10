@@ -23,30 +23,40 @@
     </div>
 
     <script>
-        async function sendMessage() {
-            const userMessage = document.getElementById('userMessage').value;
-            if (!userMessage) return;
+       async function sendMessage() {
+    const userMessage = document.getElementById('userMessage').value;
+    if (!userMessage) return;
 
-            // Display user message
-            document.getElementById('messages').innerHTML += `<p><b>You:</b> ${userMessage}</p>`;
+    // Display user message
+    document.getElementById('messages').innerHTML += `<p><b>You:</b> ${userMessage}</p>`;
 
-            // Call Hugging Face API
-        const response = await fetch("https://gravity30-simplify-ai.hf.space/run/", { 
-   	  method: "POST",
-    	  headers: { "Content-Type": "application/json" },
-    	  body: JSON.stringify({
-              data: [userMessage, [], "Simplify AI - Ready to help! 😃", 512, 0.7, 0.95]
-    })
-});
+    try {
+        // Call Hugging Face API
+        const response = await fetch("https://gravity30-simplify-ai.hf.space/api/predict/", { 
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                data: [userMessage, [], "Simplify AI - Ready to help! 😃", 512, 0.7, 0.95]
+            })
+        });
 
+        // Check if response is OK
+        if (!response.ok) {
+            throw new Error(`API error: ${response.status}`);
+        }
 
-            const data = await response.json();
+        const data = await response.json();
 
-            // Display chatbot response
-            document.getElementById('messages').innerHTML += `<p><b>Bot:</b> ${data.response}</p>`;
+        // Display chatbot response
+        document.getElementById('messages').innerHTML += `<p><b>Bot:</b> ${data.response}</p>`;
+    } catch (error) {
+        document.getElementById('messages').innerHTML += `<p><b>Bot:</b> Error: ${error.message}</p>`;
+    }
 
-            // Clear input field
-            document.getElementById('userMessage').value = "";
+    // Clear input field
+    document.getElementById('userMessage').value = "";
+}
+
         }
     </script>
 
