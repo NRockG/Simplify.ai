@@ -107,8 +107,7 @@
             inputField.value = "";
             
             // Send message to Gradio backend (Replace URL with actual API endpoint)
-            fetch("https://gravity30-simplify-ai.hf.space/chat
-", {
+            fetch("https://gravity30-simplify-ai.hf.space/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: messageText })
