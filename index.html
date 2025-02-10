@@ -72,6 +72,13 @@
             color: white;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .chat-input button:hover {
+            background-color: #0056b3;
+        }
+        .chat-input button:active {
+            background-color: #004080;
         }
     </style>
 </head>
@@ -87,10 +94,7 @@
         </div>
     </div>
 
-    <script type="module">
-        // Import Gradio client
-        import { Client } from "@gradio/client";
-
+    <script>
         async function sendMessage() {
             const inputField = document.getElementById("user-input");
             const messageText = inputField.value.trim();
@@ -109,23 +113,24 @@
 
             inputField.value = "";
 
-            // Connect to Gradio API (Hugging Face Space)
+            // Send message to backend (Hugging Face Space)
             try {
-                const client = await Client.connect("https://huggingface.co/spaces/Gravity30/Simplify.ai");
-
-                // Make a prediction request to the /chat endpoint
-                const result = await client.predict("/chat", { 
-                    message: messageText, 
-                    system_message: "Hello!!", 
-                    max_tokens: 1, 
-                    temperature: 0.1, 
-                    top_p: 0.1 
+                const response = await fetch("https://gravity30-simplify-ai.hf.space/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: messageText, system_message: "Hello!!", max_tokens: 1, temperature: 0.1, top_p: 0.1 })
                 });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
 
                 // Bot message
                 const botMessage = document.createElement("div");
                 botMessage.classList.add("message", "bot-message");
-                botMessage.textContent = result.data || "No response from the server.";
+                botMessage.textContent = data.response || "No response from the server.";
                 chatBody.appendChild(botMessage);
                 chatBody.scrollTop = chatBody.scrollHeight;
 
@@ -136,6 +141,13 @@
 
         // Add event listener to the send button
         document.getElementById("send-btn").addEventListener("click", sendMessage);
+
+        // Make the button responsive by adding Enter key functionality
+        document.getElementById("user-input").addEventListener("keypress", function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
     </script>
 </body>
 </html>
