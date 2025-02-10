@@ -83,7 +83,7 @@
         </div>
         <div class="chat-input">
             <input type="text" id="user-input" placeholder="Type your message...">
-            <button onclick="sendMessage()">Send</button>
+            <button id="send-btn">Send</button> <!-- Moved inside .chat-input -->
         </div>
     </div>
 
@@ -106,7 +106,7 @@
 
             inputField.value = "";
             
-            // Send message to Gradio backend (Replace URL with actual API endpoint)
+            // Send message to backend (Replace URL with actual API endpoint)
             fetch("https://gravity30-simplify-ai.hf.space/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -122,6 +122,9 @@
             })
             .catch(error => console.error("Error:", error));
         }
+
+        // ✅ Moved this below function definition
+        document.getElementById("send-btn").addEventListener("click", sendMessage);
     </script>
 </body>
 </html>
