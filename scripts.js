@@ -17,7 +17,7 @@ async function sendMessage() {
         const client = await Client.connect("Gravity30/Simplify.ai");
         const result = await client.predict("/chat", {
             message: message,
-            system_message: "You are Cyberdoc, a Cybersecurity expert",
+            system_message: "Simplify AI - Ready to help! 😃",
             max_tokens: 100,
             temperature: 0.7,
             top_p: 0.9,
