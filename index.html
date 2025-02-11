@@ -1,11 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Simplify</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simplify AI/title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to your CSS file -->
 </head>
 <body>
-    <h1>Welcome to Simplify - Your helpful AI assistant!</h1>
-    <p>What can i make simple?.</p>
-    <iframe src="https://Gravity30/Simplify.ai" style="width: 80%; height: 600px; border: none;" title="Simplify AI"></iframe>
+
+    <div class="chat-container">
+        <div id="chat-log">
+            <!-- Chat messages will appear here -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script> <!-- Link to your JavaScript file -->
+
 </body>
 </html>
