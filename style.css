@@ -1,0 +1,89 @@
+.chat-container {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+#chat-log {
+    padding: 15px;
+    height: 400px;
+    overflow-y: scroll;
+    background-color: #f9f9f9; /* Light background */
+}
+
+.chat-message {
+    margin-bottom: 12px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    clear: both;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.user-message {
+    background-color: #e2f0ff; /* Light blue for user */
+    text-align: right;
+    float: right;
+    color: #333;
+}
+
+.bot-message {
+    background-color: #fff; /* White for bot */
+    text-align: left;
+    float: left;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Slight shadow */
+}
+
+.chat-input {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #eee;
+    background-color: #fff;
+}
+
+#user-input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    margin-right: 10px;
+    font-size: 16px;
+    outline: none;
+}
+
+#send-button {
+    padding: 12px 20px;
+    background-color: #4285f4; /* Google blue */
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#send-button:hover {
+    background-color: #2962ff; /* Darker blue on hover */
+}
+
+#chat-log::-webkit-scrollbar {
+    width: 8px;
+}
+
+#chat-log::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+#chat-log::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+#chat-log::-webkit-scrollbar-thumb:hover {
+    background: #bbb;
+}
