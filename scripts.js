@@ -19,7 +19,7 @@ function sendMessage() {
 
 async function fetchBotResponse(message) {
     // Replace 'YOUR-FASTAPI-ENDPOINT' with your actual FastAPI endpoint
-    const response = await fetch('https://gravity30-simplify-ai.hf.space/chat', {
+    const response = await fetch('https://huggingface.co/gravity30-simplify-ai.hf.space/chat', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
